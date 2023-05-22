@@ -39,6 +39,18 @@ app.get('/groceries', (res, req, next) => {
     //next function is used to call the next middleware
     res.send(groceries)
 })
+app.get('/groceries/:id', (req, res) => {
+    //destructure the id from the request parameters
+    const { id } = req.params;
+    //find the grocery item with the id
+    const grocery = groceries.find((grocery) => grocery.id === parseInt(id));
+    //if the grocery item is not found, return a 404 error
+    if (!grocery) {
+        res.status(404).send('Grocery item not found');
+    }
+    //if the grocery item is found, return the grocery item
+    res.send(grocery);
+})
 
 app.post('/groceries', (req, res) => {
     console.log(req.body);
