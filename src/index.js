@@ -23,7 +23,16 @@ const groceries = [
 ]
 
 
-app.get('/groceries', (req, res) => {
+app.get('/groceries', (res, req, next) => {
+    // this is begin called before the next function
+    console.log('before handling the request');
+    // await console.log('before handling the request');
+    // if the next function is not called, the request will be left hanging
+    // and the function below will not be processed
+    next();
+
+}, (req, res) => {
+    //next function is used to call the next middleware
     res.send(groceries)
 })
 
